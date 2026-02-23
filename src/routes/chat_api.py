@@ -9,7 +9,7 @@ from .authentication import CurrentUserDI
 
 router = APIRouter()
 
-MessageDI: TypeAlias = Annotated[Message, Body]
+MessageDI: TypeAlias = Annotated[Message, Body()]
 
 
 @router.post("/chat")
