@@ -17,10 +17,11 @@ def test_chat_api_integrates_auth():
     chat_svc_mock = MagicMock(spec=ChatService)
     chat_svc_mock.new.return_value = Chat(id="123", messages=[message])
 
-    # Act - TODO: Complete these steps
-    user = get_current_user(...)
-    result = start_chat(...)
+    # Act
+    user = get_current_user("password", user_svc_mock)
+    result = start_chat(chat_svc_mock, user, message)
 
     # Assert
-    # TODO: Prove the integration succeeds by testing delegated call to UserService
-    ...
+    user_svc_mock.get.assert_called_once()
+    chat_svc_mock.new.assert_called_with(user, message)
+    assert message in result.messages

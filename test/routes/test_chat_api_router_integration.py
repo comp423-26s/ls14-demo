@@ -58,7 +58,11 @@ def test_start_chat_bad_auth(integrate_auth_helper: tuple[TestClient, MagicMock]
     client, mock_user_svc = integrate_auth_helper
 
     # Act - TODO
-    response = client.post(...)
+    response = client.post(
+        "/chat",
+        headers={"Authorization": "bad-password"},
+        json=Message(role="user", content="Hello, world").model_dump(),
+    )
 
     # Assert
     assert response.status_code == status.HTTP_403_FORBIDDEN
